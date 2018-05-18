@@ -1,0 +1,18 @@
+<table st-table="data" st-safe-src="rowCollection" class="table table-striped">
+        <thead>
+        <tr>
+            <th>user id</th>
+            <th>id</th>
+            <th>title</th>
+            <th>body</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-ng-repeat="el in data">
+            <td>{{el.userId}}</td>
+            <td>{{el.id}}</td>
+            <td>{{el.title}}</td>
+            <td>{{el.body}}</td>
+        </tr>
+        </tbody>
+    </table>
