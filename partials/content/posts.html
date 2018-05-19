@@ -1,18 +1,8 @@
-<table st-table="data" st-safe-src="rowCollection" class="table table-striped">
-        <thead>
-        <tr>
-            <th>user id</th>
-            <th>id</th>
-            <th>title</th>
-            <th>body</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr data-ng-repeat="el in data">
-            <td>{{el.userId}}</td>
-            <td>{{el.id}}</td>
-            <td>{{el.title}}</td>
-            <td>{{el.body}}</td>
-        </tr>
-        </tbody>
-    </table>
+<table ng-table="tableParams" class="table table-bordered table-striped table-condensed">
+    <tr ng-repeat="row in $data track by row.id">
+        <td class="col-xs-1" data-title="'Id'" sortable="'id'">{{row.id}}</td>
+        <td class="col-xs-1" data-title="'User Id'" sortable="'userId'">{{row.userId}}</td>
+        <td class="col-xs-5" data-title="'Title'" filter="{title: 'text'}" sortable="'title'">{{row.title}}</td>
+        <td class="col-xs-5" data-title="'Body'" filter="{body: 'text'}" sortable="'body'">{{row.body}}</td>
+    </tr>
+</table>

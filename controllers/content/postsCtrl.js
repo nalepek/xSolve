@@ -1,34 +1,39 @@
 'use strict';
 
-app.controller('postsCtrl', ['$scope', '$alert','apiService', function($scope, $alert, apiService){
-    
-    $scope.data = null;
-    apiService.getPosts()
-        .then(function onSuccess(response){
+app.controller('postsCtrl', ['$scope', 'apiService', 'NgTableParams', '$filter', 'toastr',
+ function($scope, apiService, NgTableParams, $filter, toastr){
 
-            $scope.data = response.data;
+    $scope.tableParams = new NgTableParams({
+        count: 10
+    }, {
+        getData: function(params) {
+          return apiService.getPosts()
+            .then(function onSuccess(response){
 
-            $alert({
-                title: 'Success!', 
-                content: 'It\'s all right!', 
-                placement: 'top', 
-                type: 'success', 
-                show: true,
-                templateUrl: 'partials/alert.html',
-                duration: 3
+                toastr.success('It\'s all right!', 'Success!');
+                var filteredData = params.filter()  ?
+                            $filter('filter')(response.data, params.filter()) :
+                            response.data;
+
+                var orderedData = params.sorting() ?
+                    $filter('orderBy')(filteredData, params.orderBy()) : response.data;
+                var page = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+
+                params.total(filteredData.length);
+
+                if (typeof(Storage) !== 'undefined') {
+                    localStorage.setItem('tableCount', filteredData.length);
+                    toastr.info(localStorage.getItem('tableCount'), 'Local storage - table total count');
+                } else {
+                    toastr.error('Your browser does not support web storage!', 'Error!');
+                }
+                return page;
+            },
+            function onError(response){
+
+                var error = response.status + ': ' + response.statusText;
+                toastr.error(error, 'Error!');
             });
-        },
-        function onError(response){
-
-            var error = response.status + ': ' + response.statusText;
-            $alert({
-                title: 'Error!', 
-                content: error, 
-                placement: 'top', 
-                type: 'danger', 
-                show: true,
-                templateUrl: 'partials/alert.html',
-                duration: 3
-            });
-        });
+        }
+      });
 }]);

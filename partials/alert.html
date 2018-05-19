@@ -1,9 +1,0 @@
-<div class="alert-wrapper">
-    <div role="alert" class="alert" data-ng-class="[type ? 'alert-' + type : null]">
-        <button type="button" class="close" data-ng-if="dismissable" data-ng-click="$hide()">&times;</button>
-        <span data-ng-if="title">
-            <strong data-ng-bind="title"></strong>&nbsp;<span data-ng-bind-html="content"></span>
-        </span>
-        <span data-ng-if="!title" data-ng-bind-html="content"></span>
-    </div>
-</div>

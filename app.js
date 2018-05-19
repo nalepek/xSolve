@@ -1,8 +1,8 @@
 'use strict';
 
-var app = angular.module('app', ['ngAnimate', 'ngRoute', 'mgcrea.ngStrap', 'smart-table']);
+var app = angular.module('app', ['ngAnimate', 'ngRoute', 'mgcrea.ngStrap', 'ngTable', 'toastr']);
 
-app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
+app.config(['$routeProvider', '$locationProvider', 'toastrConfig', function($routeProvider, $locationProvider, toastrConfig){
 
     $locationProvider.hashPrefix('');
 
@@ -20,4 +20,21 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
             redirectTo: 'home',
             controller: 'homeCtrl'
         });
+        
+
+        angular.extend(toastrConfig, {
+            //toast container
+            autoDismiss: true,
+            containerId: 'toast-container',
+            maxOpened: 2,    
+            newestOnTop: true,
+            positionClass: 'toast-top-right',
+            preventDuplicates: false,
+            preventOpenDuplicates: false,
+            target: 'body',
+
+            //toastr layout
+            closeButton: true,
+            timeOut: 1000,
+          });
 }]);
