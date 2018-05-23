@@ -186,8 +186,13 @@ app.controller('commentsCtrl', ['$scope', 'apiService', '$filter', 'toastr',
         }
     };
 
-    $scope.changeItemsPerPage = function(){
-        getData();
+    $scope.changeItemsPerPage = function() {
+        if ($scope.itemsPerPage <= 0){
+            toastr.info('Set items greater than 0', 'Info');
+        }
+        else {
+            getData();
+        }
     };
 
 }]);
