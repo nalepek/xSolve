@@ -1,0 +1,51 @@
+<div class="form-group">
+    <label for="itemsPerPage">Items per page</label>
+    <input type="text" class="form-control" id="itemsPerPage" placeholder="5" data-ng-model="itemsPerPage" data-ng-change="changeItemsPerPage()" data-ng-model-options='{ debounce: 500 }'>
+</div>
+
+<table class="table table-bordered table-striped table-condensed">
+    <thead>
+        <tr>
+            <th data-ng-repeat="element in headerElements" data-ng-class="headClass(element.id)" data-ng-click="changeSort(element.id)">{{element.name}}</th>
+        </tr>  
+        <tr>
+            <th data-ng-repeat="element in headerElements">
+                <input data-ng-if="element.filter" type="text" class="form-control" placeholder="Search for {{element.name}}" aria-describedby="{{element.name}}-filter" data-ng-change="filterFn(element)" data-ng-model="element.filterQuery" data-ng-model-options='{ debounce: 500 }'>
+            </th>
+        </tr>  
+    </thead>
+    <tbody>
+        <tr data-ng-repeat="row in pagedItems[currentPage] | orderBy : sort.column : !sort.ascending">
+            <td class="col-xs-1">{{row.id}}</td>
+            <td class="col-xs-1">{{row.postId}}</td>
+            <td class="col-xs-3">{{row.name}}</td> 
+            <td class="col-xs-3">{{row.email}}</td> 
+            <td class="col-xs-4">{{row.body}}</td> 
+        </tr>
+    </tbody>
+    <tfoot>
+        <td colspan="6">
+            <div class="pagination pull-right">
+                <ul class="pagination pull-right">
+                    <li data-ng-class="{disabled: currentPage == 0}">
+                        <a href data-ng-click="firstPage()">«« First</a>
+                    </li>
+                    <li data-ng-class="{disabled: currentPage == 0}">
+                        <a href data-ng-click="prevPage()">« Prev</a>
+                    </li>
+                    <li data-ng-repeat="n in range(pagedItems.length) | limitTo : limit : beginLimit "
+                        data-ng-class="{active: n == currentPage}"
+                        data-ng-click="setPage()">
+                        <a href data-ng-bind="n + 1">1</a>
+                    </li>
+                    <li data-ng-class="{disabled: currentPage == pagedItems.length - 1}">
+                        <a href data-ng-click="nextPage()">Next »</a>
+                    </li>
+                    <li data-ng-class="{disabled: currentPage == pagedItems.length - 1}">
+                        <a href data-ng-click="lastPage()">Last »»</a>
+                    </li>
+                </ul>
+            </div>
+        </td>
+    </tfoot>
+</table>

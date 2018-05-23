@@ -1,8 +1,8 @@
-<table ng-table="tableParams" class="table table-bordered table-striped table-condensed">
-    <tr ng-repeat="row in $data track by row.id">
-        <td class="col-xs-1" data-title="'Id'" sortable="'id'">{{row.id}}</td>
-        <td class="col-xs-1" data-title="'User Id'" sortable="'userId'">{{row.userId}}</td>
-        <td class="col-xs-5" data-title="'Title'" filter="{title: 'text'}" sortable="'title'">{{row.title}}</td>
-        <td class="col-xs-5" data-title="'Body'" filter="{body: 'text'}" sortable="'body'">{{row.body}}</td>
+<table data-ng-table="tableParams" class="table table-bordered table-striped table-condensed">
+    <tr data-ng-repeat="row in $data track by row.id">
+        <td class="col-xs-1" data-title="'Id'" data-sortable="'id'">{{row.id}}</td>
+        <td class="col-xs-1" data-title="'User Id'" data-sortable="'userId'">{{row.userId}}</td>
+        <td class="col-xs-5" data-title="'Title'" data-filter="{title: 'text'}" data-sortable="'title'">{{row.title}}</td>
+        <td class="col-xs-5" data-title="'Body'" data-filter="{body: 'text'}" data-sortable="'body'">{{row.body}}</td>
     </tr>
 </table>

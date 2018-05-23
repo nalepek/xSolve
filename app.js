@@ -15,7 +15,11 @@ app.config(['$routeProvider', '$locationProvider', 'toastrConfig', function($rou
             templateUrl: 'partials/content/posts.html',
             controller: 'postsCtrl'
         })
-        
+        .when('/comments', {
+            templateUrl: 'partials/content/comments.html',
+            controller: 'commentsCtrl'
+        })
+
         .otherwise({
             redirectTo: 'home',
             controller: 'homeCtrl'
